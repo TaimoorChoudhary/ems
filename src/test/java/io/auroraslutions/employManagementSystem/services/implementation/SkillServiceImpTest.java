@@ -72,12 +72,12 @@ class SkillServiceImpTest {
 
         Skill skill = Skill.builder().id(1L).title("Java").description("Java Developer").build();
 
-        when(skillRepository.findByTitle("Java")).thenReturn(Arrays.asList(skill));
+        when(skillRepository.findByTitle("Java")).thenReturn(Optional.of(skill));
 
-        List<Skill> skillFound = skillServiceImp.findByTitle("Java");
+        Optional<Skill> skillFound = skillServiceImp.findByTitle("Java");
 
-        assertThat("No skills found", not(skillFound.size() == 0));
-        assertThat("Skill title don't match", skillFound.get(0).getTitle(), is(skill.getTitle()));
+        assertThat("No skills found", not(skillFound.get() != null));
+        assertThat("Skill title don't match", skillFound.get().getTitle(), is(skill.getTitle()));
         verify(skillRepository, times(1)).findByTitle(anyString());
     }
 

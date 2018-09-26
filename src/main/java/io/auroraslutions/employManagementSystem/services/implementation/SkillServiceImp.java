@@ -33,7 +33,7 @@ public class SkillServiceImp implements SkillService {
     }
 
     @Override
-    public List<Skill> findByTitle(String title) {
+    public Optional<Skill> findByTitle(String title) {
         return this.skillRepository.findByTitle(title);
     }
 

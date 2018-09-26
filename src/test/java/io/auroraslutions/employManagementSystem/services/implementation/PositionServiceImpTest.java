@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -70,12 +71,12 @@ class PositionServiceImpTest {
     void findByTitle() {
         Position positionDeveloper = Position.builder().id(1L).title("Developer").build();
 
-        when(positionRepository.findByTitle("Developer")).thenReturn(Arrays.asList(positionDeveloper));
+        when(positionRepository.findByTitle("Developer")).thenReturn(Optional.of(positionDeveloper));
 
-        List<Position> positionsFound = positionServiceImp.findByTitle("Developer");
+        Optional<Position> positionsFound = positionServiceImp.findByTitle("Developer");
 
-        assertThat("Position list size mismatch", positionsFound.size(), is(1));
-        assertThat("Position not found", positionsFound.get(0).getTitle(), is(positionDeveloper.getTitle()));
+        assertThat("Position list size mismatch", positionsFound, is(notNullValue()));
+        assertThat("Position not found", positionsFound.get().getTitle(), is(positionDeveloper.getTitle()));
         verify(positionRepository, times(1)).findByTitle(anyString());
         verify(positionRepository, times(0)).findById(anyLong());
     }

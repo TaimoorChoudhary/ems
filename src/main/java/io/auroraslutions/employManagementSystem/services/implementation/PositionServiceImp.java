@@ -33,7 +33,7 @@ public class PositionServiceImp implements PositionService {
     }
 
     @Override
-    public List<Position> findByTitle(String title) {
+    public Optional<Position> findByTitle(String title) {
         return this.positionRepository.findByTitle(title);
     }
 

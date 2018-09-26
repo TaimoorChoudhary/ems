@@ -14,7 +14,7 @@ public interface PositionService {
 
     Optional<Position> findById(Long id);
 
-    List<Position> findByTitle(String title);
+    Optional<Position> findByTitle(String title);
 
     void deleteById(Long id);
 }

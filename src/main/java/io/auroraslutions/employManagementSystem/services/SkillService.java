@@ -14,7 +14,7 @@ public interface SkillService {
 
     Optional<Skill> findById(Long id);
 
-    List<Skill> findByTitle(String title);
+    Optional<Skill> findByTitle(String title);
 
     void deleteById(Long id);
 }
