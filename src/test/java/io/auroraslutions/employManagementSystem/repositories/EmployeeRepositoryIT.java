@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class EmployeeRepositoryTest {
+class EmployeeRepositoryIT {
 
     @Autowired
     EmployeeRepository employeeRepository;

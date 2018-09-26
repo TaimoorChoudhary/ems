@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class EmployManagementSystemApplicationTests {
+public class EmployManagementSystemApplicationIT {
 
 	@Test
 	public void contextLoads() {

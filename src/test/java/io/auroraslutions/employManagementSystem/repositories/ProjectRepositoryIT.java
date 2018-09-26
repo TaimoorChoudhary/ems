@@ -1,6 +1,6 @@
 package io.auroraslutions.employManagementSystem.repositories;
 
-import io.auroraslutions.employManagementSystem.domain.Position;
+import io.auroraslutions.employManagementSystem.domain.Project;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +17,16 @@ import static org.hamcrest.Matchers.is;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class PositionRepositoryTest {
+class ProjectRepositoryIT {
 
     @Autowired
-    PositionRepository positionRepository;
+    ProjectRepository projectRepository;
 
     @Test
     void findByTitle() {
 
-        Optional<Position> developer = positionRepository.findByTitle("Developer");
+        Optional<Project> pliro = projectRepository.findByTitle("pliro");
 
-        assertThat("Developer position not found", developer.get().getTitle(), is("Developer"));
+        assertThat("Pliro project not found", pliro.get().getTitle(), is("pliro"));
     }
 }
