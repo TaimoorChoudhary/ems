@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Details</title>
+</head>
+<body>
+<!--/*@thymesVar id="qualifications" type="java.util.List"*/-->
+<!--/*@thymesVar id="project" type="io.auroraslutions.employManagementSystem.domain.Project"*/-->
+<!--/*@thymesVar id="employee" type="io.auroraslutions.employManagementSystem.domain.Employee"*/-->
+    <div>
+        <h3 th:text="${project.title}">Pliro</h3>
+    </div>
+
+    <div>
+        <div>
+            <h5>Supervisors: </h5>
+        </div>
+        <div>
+            <ul>
+                <li th:remove="all">Abdul Aziz</li>
+                <li th:remove="all">Umer Aziz Malik</li>
+                <li th:each="employee : ${project.supervisors}"
+                    th:text="(${employee.firstName}? (${employee.firstName + ' '}) : '') +
+                        (${employee.middleName}? (${employee.middleName + ' '}) : '') +
+                        (${employee.lastName}? ${employee.lastName} : '')">
+                    Taimoor Choudhary</li>
+            </ul>
+        </div>
+        <div>
+            <h5>Team members: </h5>
+        </div>
+        <div>
+            <ul>
+                <li th:remove="all">Wajeeha Ahmad</li>
+                <li th:remove="all">Kashif Ali</li>
+                <li th:each="employee : ${project.employees}"
+                    th:text="(${employee.firstName}? (${employee.firstName + ' '}) : '') +
+                        (${employee.middleName}? (${employee.middleName + ' '}) : '') +
+                        (${employee.lastName}? ${employee.lastName} : '')">
+                    Taimoor Choudhary</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

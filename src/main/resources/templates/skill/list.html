@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Skills</title>
+</head>
+<body>
+<!--/*@thymesVar id="skills" type="java.util.List"*/-->
+<!--/*@thymesVar id="skill" type="io.auroraslutions.employManagementSystem.domain.Skill"*/-->
+
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tr th:remove="all">
+            <td>Java</td>
+        </tr>
+        <tr th:remove="all">
+            <td>Spring</td>
+        </tr>
+        <tr th:each="skill : ${skills}">
+            <td th:text="${skill.title}">Dot Net</td>
+            <td><a th:href="@{'/skill/' + ${skill.id} + '/show'}">View</a></td>
+        </tr>
+    </table>
+</body>
+</html>

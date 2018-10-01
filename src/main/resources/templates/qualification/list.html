@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Qualifications</title>
+</head>
+<body>
+<!--/*@thymesVar id="qualifications" type="java.util.List"*/-->
+<!--/*@thymesVar id="qualification" type="io.auroraslutions.employManagementSystem.domain.Qualification"*/-->
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tr th:remove="all">
+            <td>Phd</td>
+        </tr>
+        <tr th:remove="all">
+            <td>Masters</td>
+        </tr>
+        <tr th:each="qualification : ${qualifications}">
+            <td th:text="${qualification.title}">Bachelors</td>
+            <td><a th:href="@{'/qualification/' + ${qualification.id} + '/show'}">View</a></td>
+        </tr>
+    </table>
+</body>
+</html>

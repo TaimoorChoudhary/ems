@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Position Details</title>
+</head>
+<body>
+<!--/*@thymesVar id="position" type="io.auroraslutions.employManagementSystem.domain.Position"*/-->
+
+    <div>
+        <h2 th:text="${position.title}">CEO</h2>
+    </div>
+    <div>
+        <h3 th:text="${position.description}">Job Details</h3>
+    </div>
+</body>
+</html>

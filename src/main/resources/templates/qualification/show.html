@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Qualification Details</title>
+</head>
+<body>
+<!--/*@thymesVar id="employees" type="java.util.List"*/-->
+<!--/*@thymesVar id="qualification" type="io.auroraslutions.employManagementSystem.domain.Qualification"*/-->
+<!--/*@thymesVar id="employee" type="io.auroraslutions.employManagementSystem.domain.Employee"*/-->
+    <div>
+        <h3 th:text="${qualification.title}">Masters</h3>
+    </div>
+
+    <div>
+        <div>
+            <h5>Following Employees have the qualification: </h5>
+        </div>
+        <div>
+            <ul>
+                <li th:remove="all">Abdul Aziz</li>
+                <li th:remove="all">Umer Aziz Malik</li>
+                <li th:each="employee : ${qualification.employees}"
+                    th:text="(${employee.firstName}? (${employee.firstName + ' '}) : '') +
+                            (${employee.middleName}? (${employee.middleName + ' '}) : '') +
+                            (${employee.lastName}? ${employee.lastName} : '')">
+                    Taimoor Choudhary</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

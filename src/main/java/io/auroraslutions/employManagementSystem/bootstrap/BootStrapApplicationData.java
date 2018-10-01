@@ -118,7 +118,9 @@ public class BootStrapApplicationData implements ApplicationListener<ContextRefr
                                     .skills(Arrays.asList(javaSkill, springSkill, dotNetSkill)).build();
 
         Employee sirAziz = Employee.builder().firstName("Abdul").lastName("Aziz")
-                                    .position(ceoPosition).build();
+                                    .position(ceoPosition)
+                                    .qualifications(Arrays.asList(bachelorsQualification))
+                                    .skills(Arrays.asList(javaSkill, springSkill)).build();
 
         employeeRepository.saveAll(Arrays.asList(taimoor, sirAziz));
 

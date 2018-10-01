@@ -20,7 +20,7 @@ public class EmployeesController {
         this.employeeService = employeeService;
     }
 
-    @RequestMapping({"", "/", "/index", "/employees"})
+    @RequestMapping({"", "/", "/index", "/employees", "/employee"})
     public String listAll(Model model){
 
         log.debug("Retrieving all employees");
