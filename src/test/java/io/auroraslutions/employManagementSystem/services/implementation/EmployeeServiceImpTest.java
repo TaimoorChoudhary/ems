@@ -59,9 +59,9 @@ class EmployeeServiceImpTest {
 
         when(employeeRepository.findById(1L)).thenReturn(optionalEmployee);
 
-        Optional<Employee> employeeFound = employeeServiceImp.findById(1L);
+        Employee employeeFound = employeeServiceImp.findById(1L);
 
-        assertThat("Employee not found", employeeFound.get().getId(), is(1L));
+        assertThat("Employee not found", employeeFound.getId(), is(1L));
         verify(employeeRepository, times(0)).findAll();
         verify(employeeRepository, times(1)).findById(anyLong());
     }

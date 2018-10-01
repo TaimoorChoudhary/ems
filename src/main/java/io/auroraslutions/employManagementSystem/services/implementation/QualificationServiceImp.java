@@ -28,13 +28,25 @@ public class QualificationServiceImp implements QualificationService {
     }
 
     @Override
-    public Optional<Qualification> findById(Long id) {
-        return this.qualificationRepository.findById(id);
+    public Qualification findById(Long id) {
+        Optional<Qualification> qualification = this.qualificationRepository.findById(id);
+
+        if (!qualification.isPresent()) {
+            throw new RuntimeException("Qualification Not Found. For ID value: " + id.toString());
+        }
+
+        return qualification.get();
     }
 
     @Override
-    public Optional<Qualification> findByTitle(String title) {
-        return this.qualificationRepository.findByTitle(title);
+    public Qualification findByTitle(String title) {
+        Optional<Qualification> qualification = this.qualificationRepository.findByTitle(title);
+
+        if (!qualification.isPresent()) {
+            throw new RuntimeException("Qualification Not Found. For Title value: " + title);
+        }
+
+        return qualification.get();
     }
 
     @Override

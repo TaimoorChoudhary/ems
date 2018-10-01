@@ -61,9 +61,9 @@ class SkillServiceImpTest {
 
         when(skillRepository.findById(anyLong())).thenReturn(skillOptional);
 
-        Optional<Skill> skillFound = skillServiceImp.findById(1L);
+        Skill skillFound = skillServiceImp.findById(1L);
 
-        assertThat("Titles don't mactch", skillFound.get().getTitle(), is(skillOptional.get().getTitle()));
+        assertThat("Titles don't mactch", skillFound.getTitle(), is(skillOptional.get().getTitle()));
         verify(skillRepository, times(1)).findById(anyLong());
     }
 
@@ -74,10 +74,10 @@ class SkillServiceImpTest {
 
         when(skillRepository.findByTitle("Java")).thenReturn(Optional.of(skill));
 
-        Optional<Skill> skillFound = skillServiceImp.findByTitle("Java");
+        Skill skillFound = skillServiceImp.findByTitle("Java");
 
-        assertThat("No skills found", not(skillFound.get() != null));
-        assertThat("Skill title don't match", skillFound.get().getTitle(), is(skill.getTitle()));
+        assertThat("No skills found", not(skillFound != null));
+        assertThat("Skill title don't match", skillFound.getTitle(), is(skill.getTitle()));
         verify(skillRepository, times(1)).findByTitle(anyString());
     }
 

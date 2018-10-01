@@ -59,10 +59,10 @@ class QualificationServiceImpTest {
 
         when(qualificationRepository.findById(anyLong())).thenReturn(qualificationOptional);
 
-        Optional<Qualification> qualificationsFound = qualificationServiceImp.findById(1L);
+        Qualification qualificationsFound = qualificationServiceImp.findById(1L);
 
         assertThat("Qualification not found",
-                        qualificationsFound.get().getTitle(), is(qualificationBsc.getTitle()));
+                        qualificationsFound.getTitle(), is(qualificationBsc.getTitle()));
         verify(qualificationRepository, times(0)).findAll();
         verify(qualificationRepository, times(1)).findById(anyLong());
     }
@@ -74,9 +74,9 @@ class QualificationServiceImpTest {
 
         when(qualificationRepository.findByTitle(anyString())).thenReturn(qualificationOptional);
 
-        Optional<Qualification> qualificationFound = qualificationRepository.findByTitle("MSc");
+        Qualification qualificationFound = qualificationServiceImp.findByTitle("MSc");
 
-        assertThat("Qualification not found", qualificationFound.get().getTitle(), is(qualification.getTitle()));
+        assertThat("Qualification not found", qualificationFound.getTitle(), is(qualification.getTitle()));
         verify(qualificationRepository, times(1)).findByTitle(anyString());
     }
 

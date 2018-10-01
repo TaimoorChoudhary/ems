@@ -28,13 +28,25 @@ public class PositionServiceImp implements PositionService {
     }
 
     @Override
-    public Optional<Position> findById(Long id) {
-        return this.positionRepository.findById(id);
+    public Position findById(Long id) {
+        Optional<Position> position = this.positionRepository.findById(id);
+
+        if (!position.isPresent()) {
+            throw new RuntimeException("Position Not Found. For ID value: " + id.toString());
+        }
+
+        return position.get();
     }
 
     @Override
-    public Optional<Position> findByTitle(String title) {
-        return this.positionRepository.findByTitle(title);
+    public Position findByTitle(String title) {
+        Optional<Position> position = this.positionRepository.findByTitle(title);
+
+        if (!position.isPresent()) {
+            throw new RuntimeException("Position Not Found. For Title value: " + title);
+        }
+
+        return position.get();
     }
 
     @Override

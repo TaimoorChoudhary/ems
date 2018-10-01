@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+</head>
+<body>
+<!--/*@thymesVar id="employees" type="java.util.List"*/-->
+<!--/*@thymesVar id="employee" type="io.auroraslutions.employManagementSystem.domain.Employee"*/-->
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Project</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr th:remove="all">
+            <td><a href="#">Abdul Aziz</a></td>
+            <td>CEO</td>
+            <td></td>
+        </tr>
+        <tr th:remove="all">
+            <td><a href="#">Umer Aziz Malik</a></td>
+            <td>Manager</td>
+            <td>jBilling</td>
+        </tr>
+        <tr th:each="employee : ${employees}">
+            <td th:text="(${employee.firstName}? (${employee.firstName + ' '}) : '') +
+                            (${employee.middleName}? (${employee.middleName + ' '}) : '') +
+                            (${employee.lastName}? ${employee.lastName} : '')">
+                Muhammad Taimoor Choudhary
+            </td>
+            <td th:text="${employee.position.title}">
+                <a href="#">Team Lead</a>
+            </td>
+            <td th:text="${employee.project?.title}">
+                <a href="#">jBilling</a>
+            </td>
+            <td><a th:href="@{'/employee/' + ${employee.id} + '/show'}">View</a></td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -59,9 +59,9 @@ class ProjectServiceImpTest {
 
         when(projectRepository.findById(1L)).thenReturn(projectOptional);
 
-        Optional<Project> projectFound = projectServiceImp.findById(1L);
+        Project projectFound = projectServiceImp.findById(1L);
 
-        assertThat("Project not found", projectFound.get().getId(), is(1L));
+        assertThat("Project not found", projectFound.getId(), is(1L));
         verify(projectRepository, times(0)).findAll();
         verify(projectRepository, times(1)).findById(anyLong());
     }
@@ -74,9 +74,9 @@ class ProjectServiceImpTest {
 
         when(projectRepository.findByTitle("jBilling")).thenReturn(projectOptional);
 
-        Optional<Project> projectFound = projectServiceImp.findByTitle("jBilling");
+        Project projectFound = projectServiceImp.findByTitle("jBilling");
 
-        assertThat("Project not found", projectFound.get().getTitle(), is("jBilling"));
+        assertThat("Project not found", projectFound.getTitle(), is("jBilling"));
         verify(projectRepository, times(1)).findByTitle(anyString());
         verify(projectRepository, times(0)).findById(anyLong());
     }

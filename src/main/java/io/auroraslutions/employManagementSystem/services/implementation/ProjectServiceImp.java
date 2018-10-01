@@ -28,13 +28,25 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
-    public Optional<Project> findById(Long id) {
-        return this.projectRepository.findById(id);
+    public Project findById(Long id) {
+        Optional<Project> project = this.projectRepository.findById(id);
+
+        if (!project.isPresent()) {
+            throw new RuntimeException("Project Not Found. For ID value: " + id.toString());
+        }
+
+        return project.get();
     }
 
     @Override
-    public Optional<Project> findByTitle(String title) {
-        return this.projectRepository.findByTitle(title);
+    public Project findByTitle(String title) {
+        Optional<Project> project = this.projectRepository.findByTitle(title);
+
+        if (!project.isPresent()) {
+            throw new RuntimeException("Project Not Found. For Title value: " + title);
+        }
+
+        return project.get();
     }
 
     @Override

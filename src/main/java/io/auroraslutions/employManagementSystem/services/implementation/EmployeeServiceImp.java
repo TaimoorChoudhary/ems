@@ -28,8 +28,14 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public Optional<Employee> findById(Long id) {
-        return this.employeeRepository.findById(id);
+    public Employee findById(Long id) {
+        Optional<Employee> employee = this.employeeRepository.findById(id);
+
+        if (!employee.isPresent()) {
+            throw new RuntimeException("Employee Not Found. For ID value: " + id.toString());
+        }
+
+        return employee.get();
     }
 
     @Override

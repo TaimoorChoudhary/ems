@@ -28,13 +28,25 @@ public class SkillServiceImp implements SkillService {
     }
 
     @Override
-    public Optional<Skill> findById(Long id) {
-        return this.skillRepository.findById(id);
+    public Skill findById(Long id) {
+        Optional<Skill> skill = this.skillRepository.findById(id);
+
+        if (!skill.isPresent()) {
+            throw new RuntimeException("Skill Not Found. For ID value: " + id.toString());
+        }
+
+        return skill.get();
     }
 
     @Override
-    public Optional<Skill> findByTitle(String title) {
-        return this.skillRepository.findByTitle(title);
+    public Skill findByTitle(String title) {
+        Optional<Skill> skill = this.skillRepository.findByTitle(title);
+
+        if (!skill.isPresent()) {
+            throw new RuntimeException("Skill Not Found. For ID value: " + title);
+        }
+
+        return skill.get();
     }
 
     @Override

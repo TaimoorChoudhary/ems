@@ -60,9 +60,9 @@ class PositionServiceImpTest {
 
         when(positionRepository.findById(1L)).thenReturn(positionOptional);
 
-        Optional<Position> positionFound = positionServiceImp.findById(1L);
+        Position positionFound = positionServiceImp.findById(1L);
 
-        assertThat("Position not found", positionFound.get().getId(), is(positionDeveloper.getId()));
+        assertThat("Position not found", positionFound.getId(), is(positionDeveloper.getId()));
         verify(positionRepository, times(0)).findAll();
         verify(positionRepository, times(1)).findById(anyLong());
     }
@@ -73,10 +73,10 @@ class PositionServiceImpTest {
 
         when(positionRepository.findByTitle("Developer")).thenReturn(Optional.of(positionDeveloper));
 
-        Optional<Position> positionsFound = positionServiceImp.findByTitle("Developer");
+        Position positionsFound = positionServiceImp.findByTitle("Developer");
 
         assertThat("Position list size mismatch", positionsFound, is(notNullValue()));
-        assertThat("Position not found", positionsFound.get().getTitle(), is(positionDeveloper.getTitle()));
+        assertThat("Position not found", positionsFound.getTitle(), is(positionDeveloper.getTitle()));
         verify(positionRepository, times(1)).findByTitle(anyString());
         verify(positionRepository, times(0)).findById(anyLong());
     }
