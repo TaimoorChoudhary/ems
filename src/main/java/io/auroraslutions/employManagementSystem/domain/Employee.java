@@ -2,6 +2,7 @@ package io.auroraslutions.employManagementSystem.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"supervisors", "qualifications"})
 @Entity
 @Table(name ="employees")
 public class Employee extends User {

@@ -1,6 +1,6 @@
 package io.auroraslutions.employManagementSystem.services;
 
-import io.auroraslutions.employManagementSystem.domain.Project;
+import io.auroraslutions.employManagementSystem.api.model.ProjectDTO;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    List<Project> findAll();
+    List<ProjectDTO> findAll();
 
-    Project findById(Long id);
+    ProjectDTO findById(Long id);
 
-    Project findByTitle(String title);
+    ProjectDTO findByTitle(String title);
 
     void deleteById(Long id);
 }

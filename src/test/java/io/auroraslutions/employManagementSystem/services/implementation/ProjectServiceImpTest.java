@@ -1,10 +1,11 @@
 package io.auroraslutions.employManagementSystem.services.implementation;
 
+import io.auroraslutions.employManagementSystem.api.mapper.ProjectMapper;
+import io.auroraslutions.employManagementSystem.api.model.ProjectDTO;
 import io.auroraslutions.employManagementSystem.domain.Project;
 import io.auroraslutions.employManagementSystem.repositories.ProjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -28,12 +29,15 @@ class ProjectServiceImpTest {
     @Mock
     ProjectRepository projectRepository;
 
-    @InjectMocks
+    ProjectMapper projectMapper = ProjectMapper.INSTANCE;
+
     ProjectServiceImp projectServiceImp;
 
     @BeforeEach
     void setUp() {
+
         MockitoAnnotations.initMocks(this);
+        projectServiceImp = new ProjectServiceImp(projectRepository, projectMapper);
     }
 
     @Test
@@ -44,7 +48,7 @@ class ProjectServiceImpTest {
 
         when(projectRepository.findAll()).thenReturn(Arrays.asList(projectPliro, projectJbilling));
 
-        List<Project> projectsFound = projectServiceImp.findAll();
+        List<ProjectDTO> projectsFound = projectServiceImp.findAll();
 
         assertThat("All Projects not found", projectsFound.size(), is(2));
         verify(projectRepository, times(1)).findAll();
@@ -59,7 +63,7 @@ class ProjectServiceImpTest {
 
         when(projectRepository.findById(1L)).thenReturn(projectOptional);
 
-        Project projectFound = projectServiceImp.findById(1L);
+        ProjectDTO projectFound = projectServiceImp.findById(1L);
 
         assertThat("Project not found", projectFound.getId(), is(1L));
         verify(projectRepository, times(0)).findAll();
@@ -74,7 +78,7 @@ class ProjectServiceImpTest {
 
         when(projectRepository.findByTitle("jBilling")).thenReturn(projectOptional);
 
-        Project projectFound = projectServiceImp.findByTitle("jBilling");
+        ProjectDTO projectFound = projectServiceImp.findByTitle("jBilling");
 
         assertThat("Project not found", projectFound.getTitle(), is("jBilling"));
         verify(projectRepository, times(1)).findByTitle(anyString());
@@ -86,7 +90,7 @@ class ProjectServiceImpTest {
 
         Long idToDelete = Long.valueOf(3L);
 
-        projectServiceImp.deleteById(3L);
+        projectServiceImp.deleteById(idToDelete);
 
         verify(projectRepository, times(1)).deleteById(anyLong());
     }

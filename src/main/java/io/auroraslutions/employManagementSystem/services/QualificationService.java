@@ -1,6 +1,6 @@
 package io.auroraslutions.employManagementSystem.services;
 
-import io.auroraslutions.employManagementSystem.domain.Qualification;
+import io.auroraslutions.employManagementSystem.api.model.QualificationDTO;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface QualificationService {
 
-    List<Qualification> findAll();
+    List<QualificationDTO> findAll();
 
-    Qualification findById(Long id);
+    QualificationDTO findById(Long id);
 
-    Qualification findByTitle(String title);
+    QualificationDTO findByTitle(String title);
 
     void deleteById(Long id);
 }

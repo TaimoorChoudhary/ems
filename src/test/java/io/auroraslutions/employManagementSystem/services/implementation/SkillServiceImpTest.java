@@ -1,10 +1,11 @@
 package io.auroraslutions.employManagementSystem.services.implementation;
 
+import io.auroraslutions.employManagementSystem.api.mapper.SkillMapper;
+import io.auroraslutions.employManagementSystem.api.model.SkillDTO;
 import io.auroraslutions.employManagementSystem.domain.Skill;
 import io.auroraslutions.employManagementSystem.repositories.SkillRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -12,14 +13,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by Taimoor Choudhary on 9/13/18.
@@ -30,12 +31,15 @@ class SkillServiceImpTest {
     @Mock
     SkillRepository skillRepository;
 
-    @InjectMocks
+    SkillMapper skillMapper = SkillMapper.INSTANCE;
+
     SkillServiceImp skillServiceImp;
 
     @BeforeEach
     public void setUp() {
+
         MockitoAnnotations.initMocks(this);
+        skillServiceImp = new SkillServiceImp(skillRepository, skillMapper);
     }
 
     @Test
@@ -46,7 +50,7 @@ class SkillServiceImpTest {
 
         when(skillRepository.findAll()).thenReturn(Arrays.asList(skillJava, skillSpring));
 
-        List<Skill> skillsFound = skillServiceImp.findAll();
+        List<SkillDTO> skillsFound = skillServiceImp.findAll();
 
         assertThat(skillsFound.size(), is(2));
         verify(skillRepository, times(0)).findById(anyLong());
@@ -61,7 +65,7 @@ class SkillServiceImpTest {
 
         when(skillRepository.findById(anyLong())).thenReturn(skillOptional);
 
-        Skill skillFound = skillServiceImp.findById(1L);
+        SkillDTO skillFound = skillServiceImp.findById(1L);
 
         assertThat("Titles don't mactch", skillFound.getTitle(), is(skillOptional.get().getTitle()));
         verify(skillRepository, times(1)).findById(anyLong());
@@ -74,7 +78,7 @@ class SkillServiceImpTest {
 
         when(skillRepository.findByTitle("Java")).thenReturn(Optional.of(skill));
 
-        Skill skillFound = skillServiceImp.findByTitle("Java");
+        SkillDTO skillFound = skillServiceImp.findByTitle("Java");
 
         assertThat("No skills found", not(skillFound != null));
         assertThat("Skill title don't match", skillFound.getTitle(), is(skill.getTitle()));

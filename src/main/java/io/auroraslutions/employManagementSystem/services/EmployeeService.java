@@ -1,6 +1,6 @@
 package io.auroraslutions.employManagementSystem.services;
 
-import io.auroraslutions.employManagementSystem.domain.Employee;
+import io.auroraslutions.employManagementSystem.api.model.EmployeeDTO;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface EmployeeService {
 
-    List<Employee> findAll();
+    List<EmployeeDTO> findAll();
 
-    Employee findById(Long id);
+    EmployeeDTO findById(Long id);
 
-    List<Employee> findByMiddleName(String name);
+    List<EmployeeDTO> findByMiddleName(String name);
 
     void deleteById(Long id);
 }

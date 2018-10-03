@@ -1,10 +1,11 @@
 package io.auroraslutions.employManagementSystem.services.implementation;
 
+import io.auroraslutions.employManagementSystem.api.mapper.PositionMapper;
+import io.auroraslutions.employManagementSystem.api.model.PositionDTO;
 import io.auroraslutions.employManagementSystem.domain.Position;
 import io.auroraslutions.employManagementSystem.repositories.PositionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -29,12 +30,15 @@ class PositionServiceImpTest {
     @Mock
     PositionRepository positionRepository;
 
-    @InjectMocks
+    PositionMapper positionMapper = PositionMapper.INSTANCE;
+
     PositionServiceImp positionServiceImp;
 
     @BeforeEach
     public void setUp() {
+
         MockitoAnnotations.initMocks(this);
+        positionServiceImp = new PositionServiceImp(positionRepository, positionMapper);
     }
 
     @Test
@@ -45,7 +49,7 @@ class PositionServiceImpTest {
 
         when(positionRepository.findAll()).thenReturn(Arrays.asList(positionDeveloper, positionTeamLead));
 
-        List<Position> positionsFound = positionServiceImp.findAll();
+        List<PositionDTO> positionsFound = positionServiceImp.findAll();
 
         assertThat("All Positions not found", positionsFound.size(), is(2));
         verify(positionRepository, times(1)).findAll();
@@ -60,7 +64,7 @@ class PositionServiceImpTest {
 
         when(positionRepository.findById(1L)).thenReturn(positionOptional);
 
-        Position positionFound = positionServiceImp.findById(1L);
+        PositionDTO positionFound = positionServiceImp.findById(1L);
 
         assertThat("Position not found", positionFound.getId(), is(positionDeveloper.getId()));
         verify(positionRepository, times(0)).findAll();
@@ -73,10 +77,10 @@ class PositionServiceImpTest {
 
         when(positionRepository.findByTitle("Developer")).thenReturn(Optional.of(positionDeveloper));
 
-        Position positionsFound = positionServiceImp.findByTitle("Developer");
+        PositionDTO positionFound = positionServiceImp.findByTitle("Developer");
 
-        assertThat("Position list size mismatch", positionsFound, is(notNullValue()));
-        assertThat("Position not found", positionsFound.getTitle(), is(positionDeveloper.getTitle()));
+        assertThat("Position list size mismatch", positionFound, is(notNullValue()));
+        assertThat("Position not found", positionFound.getTitle(), is(positionDeveloper.getTitle()));
         verify(positionRepository, times(1)).findByTitle(anyString());
         verify(positionRepository, times(0)).findById(anyLong());
     }

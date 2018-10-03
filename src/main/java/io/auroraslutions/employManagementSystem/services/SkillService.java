@@ -1,6 +1,6 @@
 package io.auroraslutions.employManagementSystem.services;
 
-import io.auroraslutions.employManagementSystem.domain.Skill;
+import io.auroraslutions.employManagementSystem.api.model.SkillDTO;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface SkillService {
 
-    List<Skill> findAll();
+    List<SkillDTO> findAll();
 
-    Skill findById(Long id);
+    SkillDTO findById(Long id);
 
-    Skill findByTitle(String title);
+    SkillDTO findByTitle(String title);
 
     void deleteById(Long id);
 }

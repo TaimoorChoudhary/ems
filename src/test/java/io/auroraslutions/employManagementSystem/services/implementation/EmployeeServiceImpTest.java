@@ -1,10 +1,11 @@
 package io.auroraslutions.employManagementSystem.services.implementation;
 
+import io.auroraslutions.employManagementSystem.api.mapper.EmployeeMapper;
+import io.auroraslutions.employManagementSystem.api.model.EmployeeDTO;
 import io.auroraslutions.employManagementSystem.domain.Employee;
 import io.auroraslutions.employManagementSystem.repositories.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -28,12 +29,15 @@ class EmployeeServiceImpTest {
     @Mock
     EmployeeRepository employeeRepository;
 
-    @InjectMocks
+    EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+
     EmployeeServiceImp employeeServiceImp;
 
     @BeforeEach
     void setUp() {
+
         MockitoAnnotations.initMocks(this);
+        employeeServiceImp = new EmployeeServiceImp(employeeRepository, employeeMapper);
     }
 
     @Test
@@ -44,7 +48,7 @@ class EmployeeServiceImpTest {
 
         when(employeeRepository.findAll()).thenReturn(Arrays.asList(employeeAziz, employeeTaimoor));
 
-        List<Employee> employeesFound = employeeServiceImp.findAll();
+        List<EmployeeDTO> employeesFound = employeeServiceImp.findAll();
 
         assertThat("All Employees not found", employeesFound.size(), is(2));
         verify(employeeRepository, times(1)).findAll();
@@ -59,7 +63,7 @@ class EmployeeServiceImpTest {
 
         when(employeeRepository.findById(1L)).thenReturn(optionalEmployee);
 
-        Employee employeeFound = employeeServiceImp.findById(1L);
+        EmployeeDTO employeeFound = employeeServiceImp.findById(1L);
 
         assertThat("Employee not found", employeeFound.getId(), is(1L));
         verify(employeeRepository, times(0)).findAll();
@@ -73,7 +77,7 @@ class EmployeeServiceImpTest {
 
         when(employeeRepository.findByMiddleName("Taimoor")).thenReturn(Arrays.asList(employeeTaimoor));
 
-        List<Employee> employeeFound = employeeServiceImp.findByMiddleName("Taimoor");
+        List<EmployeeDTO> employeeFound = employeeServiceImp.findByMiddleName("Taimoor");
 
         assertThat("Employee list size mismatch", employeeFound.size(), is(1));
         assertThat("Employee not found", employeeFound.get(0).getMiddleName(), is(employeeTaimoor.getMiddleName()));

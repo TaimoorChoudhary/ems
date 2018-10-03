@@ -1,10 +1,11 @@
 package io.auroraslutions.employManagementSystem.services.implementation;
 
+import io.auroraslutions.employManagementSystem.api.mapper.QualificationMapper;
+import io.auroraslutions.employManagementSystem.api.model.QualificationDTO;
 import io.auroraslutions.employManagementSystem.domain.Qualification;
 import io.auroraslutions.employManagementSystem.repositories.QualificationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -28,12 +29,15 @@ class QualificationServiceImpTest {
     @Mock
     QualificationRepository qualificationRepository;
 
-    @InjectMocks
+    QualificationMapper qualificationMapper = QualificationMapper.INSTANCE;
+
     QualificationServiceImp qualificationServiceImp;
 
     @BeforeEach
     public void setUp() {
+
         MockitoAnnotations.initMocks(this);
+        qualificationServiceImp = new QualificationServiceImp(qualificationRepository, qualificationMapper);
     }
 
     @Test
@@ -44,7 +48,7 @@ class QualificationServiceImpTest {
 
         when(qualificationRepository.findAll()).thenReturn(Arrays.asList(qualificationBsc, qualificationMsc));
 
-        List<Qualification> qualificationsFound = qualificationServiceImp.findAll();
+        List<QualificationDTO> qualificationsFound = qualificationServiceImp.findAll();
 
         assertThat("All Qualifications not found", qualificationsFound.size(), is(2));
         verify(qualificationRepository, times(1)).findAll();
@@ -59,10 +63,10 @@ class QualificationServiceImpTest {
 
         when(qualificationRepository.findById(anyLong())).thenReturn(qualificationOptional);
 
-        Qualification qualificationsFound = qualificationServiceImp.findById(1L);
+        QualificationDTO qualificationFound = qualificationServiceImp.findById(1L);
 
         assertThat("Qualification not found",
-                        qualificationsFound.getTitle(), is(qualificationBsc.getTitle()));
+                        qualificationFound.getTitle(), is(qualificationBsc.getTitle()));
         verify(qualificationRepository, times(0)).findAll();
         verify(qualificationRepository, times(1)).findById(anyLong());
     }
@@ -74,7 +78,7 @@ class QualificationServiceImpTest {
 
         when(qualificationRepository.findByTitle(anyString())).thenReturn(qualificationOptional);
 
-        Qualification qualificationFound = qualificationServiceImp.findByTitle("MSc");
+        QualificationDTO qualificationFound = qualificationServiceImp.findByTitle("MSc");
 
         assertThat("Qualification not found", qualificationFound.getTitle(), is(qualification.getTitle()));
         verify(qualificationRepository, times(1)).findByTitle(anyString());

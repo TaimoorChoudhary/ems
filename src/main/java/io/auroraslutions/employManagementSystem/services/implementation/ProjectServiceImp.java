@@ -1,13 +1,14 @@
 package io.auroraslutions.employManagementSystem.services.implementation;
 
-import io.auroraslutions.employManagementSystem.domain.Project;
+import io.auroraslutions.employManagementSystem.api.mapper.ProjectMapper;
+import io.auroraslutions.employManagementSystem.api.model.ProjectDTO;
 import io.auroraslutions.employManagementSystem.repositories.ProjectRepository;
 import io.auroraslutions.employManagementSystem.services.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by Taimoor Choudhary on 9/12/18.
@@ -17,36 +18,36 @@ import java.util.Optional;
 public class ProjectServiceImp implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ProjectMapper projectMapper;
 
-    public ProjectServiceImp(ProjectRepository projectRepository) {
+    public ProjectServiceImp(ProjectRepository projectRepository, ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
+        this.projectMapper = projectMapper;
     }
 
     @Override
-    public List<Project> findAll() {
-        return this.projectRepository.findAll();
+    public List<ProjectDTO> findAll() {
+        return this.projectRepository
+                .findAll()
+                .stream()
+                .map(projectMapper::projectToProjectDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Project findById(Long id) {
-        Optional<Project> project = this.projectRepository.findById(id);
-
-        if (!project.isPresent()) {
-            throw new RuntimeException("Project Not Found. For ID value: " + id.toString());
-        }
-
-        return project.get();
+    public ProjectDTO findById(Long id) {
+        return this.projectRepository
+                .findById(id)
+                .map(projectMapper::projectToProjectDto)
+                .orElseThrow(() -> new RuntimeException("Project Not Found. For ID value: " + id.toString()));
     }
 
     @Override
-    public Project findByTitle(String title) {
-        Optional<Project> project = this.projectRepository.findByTitle(title);
-
-        if (!project.isPresent()) {
-            throw new RuntimeException("Project Not Found. For Title value: " + title);
-        }
-
-        return project.get();
+    public ProjectDTO findByTitle(String title) {
+        return this.projectRepository
+                .findByTitle(title)
+                .map(projectMapper::projectToProjectDto)
+                .orElseThrow(() -> new RuntimeException("Project Not Found. For Title value: " + title));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package io.auroraslutions.employManagementSystem.services;
 
-import io.auroraslutions.employManagementSystem.domain.Position;
+import io.auroraslutions.employManagementSystem.api.model.PositionDTO;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface PositionService {
 
-    List<Position> findAll();
+    List<PositionDTO> findAll();
 
-    Position findById(Long id);
+    PositionDTO findById(Long id);
 
-    Position findByTitle(String title);
+    PositionDTO findByTitle(String title);
 
     void deleteById(Long id);
 }
