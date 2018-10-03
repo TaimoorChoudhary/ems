@@ -2,11 +2,13 @@ package io.auroraslutions.employManagementSystem.services.implementation;
 
 import io.auroraslutions.employManagementSystem.api.mapper.EmployeeMapper;
 import io.auroraslutions.employManagementSystem.api.model.EmployeeDTO;
+import io.auroraslutions.employManagementSystem.domain.Skill;
 import io.auroraslutions.employManagementSystem.repositories.EmployeeRepository;
 import io.auroraslutions.employManagementSystem.services.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +32,9 @@ public class EmployeeServiceImp implements EmployeeService {
         return this.employeeRepository
                 .findAll()
                 .stream()
-                .map(employeeMapper::employeeToEmployeeDto)
-                .collect(Collectors.toList());
+                .map(employee -> {
+                    return employeeMapper.employeeToEmployeeDto(employee); })
+                .collect(Collectors.toCollection( ArrayList<EmployeeDTO>::new ));
     }
 
     @Override

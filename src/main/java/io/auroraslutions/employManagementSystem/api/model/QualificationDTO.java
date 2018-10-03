@@ -1,10 +1,9 @@
 package io.auroraslutions.employManagementSystem.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
@@ -13,8 +12,6 @@ import java.util.List;
  * Created by Taimoor Choudhary on 10/2/18.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(exclude = {"employees"})
 public class QualificationDTO {
 
@@ -26,4 +23,15 @@ public class QualificationDTO {
     private Date completionYear;
 
     private List<EmployeeDTO> employees;
+
+    public QualificationDTO() {
+    }
+
+    @Builder
+    public QualificationDTO(Long id, String title, Date completionYear, List<EmployeeDTO> employees) {
+        this.id = id;
+        this.title = title;
+        this.completionYear = completionYear;
+        this.employees = employees;
+    }
 }

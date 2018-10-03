@@ -6,9 +6,9 @@
 </head>
 <body>
 <!--/*@thymesVar id="qualifications" type="java.util.List"*/-->
-<!--/*@thymesVar id="employee" type="io.auroraslutions.employManagementSystem.domain.Employee"*/-->
-<!--/*@thymesVar id="qualification" type="io.auroraslutions.employManagementSystem.domain.Qualification"*/-->
-<!--/*@thymesVar id="project" type="io.auroraslutions.employManagementSystem.domain.Project"*/-->
+<!--/*@thymesVar id="employee" type="io.auroraslutions.employManagementSystem.api.model.EmployeeDTO"*/-->
+<!--/*@thymesVar id="qualification" type="io.auroraslutions.employManagementSystem.api.model.QualificationDTO"*/-->
+<!--/*@thymesVar id="project" type="io.auroraslutions.employManagementSystem.api.model.ProjectDTO"*/-->
 
     <div>
         <h3 th:text="(${employee.firstName}? (${employee.firstName + ' '}) : '') +
