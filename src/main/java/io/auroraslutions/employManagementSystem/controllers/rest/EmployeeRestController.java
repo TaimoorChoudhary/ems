@@ -2,6 +2,8 @@ package io.auroraslutions.employManagementSystem.controllers.rest;
 
 import io.auroraslutions.employManagementSystem.api.model.EmployeeDTO;
 import io.auroraslutions.employManagementSystem.services.EmployeeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(EmployeeRestController.BASE_URL)
+@Api(description = "Employee Controller")
 public class EmployeeRestController {
 
     public static final String BASE_URL = "/api/v1/employees";
@@ -30,7 +33,8 @@ public class EmployeeRestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EmployeeDTO> getAllCustomers(){
+    @ApiOperation(value = "Will return all available employees.")
+    public List<EmployeeDTO> getAllEmployees(){
 
         log.debug("Retrieving all employees");
 
@@ -39,7 +43,8 @@ public class EmployeeRestController {
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDTO getCustomerById(@PathVariable Long id){
+    @ApiOperation(value = "Will return Employee for the provided ID if available.")
+    public EmployeeDTO getEmployeeById(@PathVariable Long id){
 
         log.debug(String.format("Retrieving employee for ID: %s", id));
 

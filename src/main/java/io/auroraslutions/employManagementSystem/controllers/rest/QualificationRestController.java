@@ -2,6 +2,8 @@ package io.auroraslutions.employManagementSystem.controllers.rest;
 
 import io.auroraslutions.employManagementSystem.api.model.QualificationDTO;
 import io.auroraslutions.employManagementSystem.services.QualificationService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(QualificationRestController.BASE_URL)
+@Api(description = "Employees Qualifications Controller")
 public class QualificationRestController {
 
     public static final String BASE_URL = "/api/v1/qualifications";
@@ -30,6 +33,7 @@ public class QualificationRestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Will return all available Organization Employees Qualifications.")
     public List<QualificationDTO> getAllQualifications(){
 
         log.debug("Requesting all availale qualifications");
@@ -37,6 +41,8 @@ public class QualificationRestController {
     }
 
     @GetMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Will return Qualification for the provided ID if available.")
     public QualificationDTO getQualificationById(@PathVariable Long id){
 
         log.debug(String.format("Requesting Qualification for ID: %s", id));

@@ -2,6 +2,8 @@ package io.auroraslutions.employManagementSystem.controllers.rest;
 
 import io.auroraslutions.employManagementSystem.api.model.PositionDTO;
 import io.auroraslutions.employManagementSystem.services.PositionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(PositionRestController.BASE_URL)
+@Api(description = "Organization Positions Controller")
 public class PositionRestController {
 
     public static final String BASE_URL = "/api/v1/positions";
@@ -30,6 +33,7 @@ public class PositionRestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Will return all available Positions in the Organization.")
     public List<PositionDTO> getAllPosition(){
 
         log.debug("Requesting all available positions");
@@ -38,6 +42,7 @@ public class PositionRestController {
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Will return Organization Position for the provided ID if available.")
     public PositionDTO getPositionById(@PathVariable Long id){
 
         log.debug(String.format("Requesting Position for ID: %s", id));

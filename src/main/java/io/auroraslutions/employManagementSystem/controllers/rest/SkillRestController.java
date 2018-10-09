@@ -2,6 +2,8 @@ package io.auroraslutions.employManagementSystem.controllers.rest;
 
 import io.auroraslutions.employManagementSystem.api.model.SkillDTO;
 import io.auroraslutions.employManagementSystem.services.SkillService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(SkillRestController.BASE_URL)
+@Api(description = "Employees Skills Controller")
 public class SkillRestController {
 
     public static final String BASE_URL = "/api/v1/skills";
@@ -30,6 +33,7 @@ public class SkillRestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Will return all available Skills for the Organization Employees.")
     public List<SkillDTO> getAllSkills(){
 
         log.debug("Requesting all available Skills");
@@ -38,6 +42,7 @@ public class SkillRestController {
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Will return Skill for the provided ID if available.")
     public SkillDTO getSkillById(@PathVariable Long id){
 
         log.debug(String.format("Requesting Skill for ID: %s", id));
